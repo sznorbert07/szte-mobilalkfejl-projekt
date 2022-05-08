@@ -3,9 +3,12 @@ package com.szte.projectmanagement;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -15,6 +18,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import java.util.Objects;
 
 public class RegisterActivity extends AppCompatActivity {
+    private static final String PREF_TAG = Objects.requireNonNull(LoginActivity.class.getPackage()).toString();
     private static final String LOG_TAG = RegisterActivity.class.getName();
 
     private EditText et_username;
@@ -25,6 +29,9 @@ public class RegisterActivity extends AppCompatActivity {
     private Button button_cancelLogin;
 
     private FirebaseAuth firebaseAuth;
+    private SharedPreferences preferences;
+
+    private Animation scaleAnimation;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,10 +50,22 @@ public class RegisterActivity extends AppCompatActivity {
         et_passwordAgain = findViewById(R.id.editText_register_TextPasswordAgain);
 
         firebaseAuth = FirebaseAuth.getInstance();
+        preferences = getSharedPreferences(PREF_TAG, MODE_PRIVATE);
+
+        String emailAddress = preferences.getString("emailAddress", "");
+        String password = preferences.getString("password", "");
+
+        et_emailAddress.setText(emailAddress);
+        et_password.setText(password);
+        et_passwordAgain.setText(password);
+
+        scaleAnimation = AnimationUtils.loadAnimation(this, R.anim.scale);
     }
 
     private void registerButtonClick(View view) {
         Log.i(LOG_TAG, "Registrating...");
+
+        button_register.startAnimation(scaleAnimation);
 
         String username = et_username.getText().toString();
         String emailAddress = et_emailAddress.getText().toString();
@@ -87,6 +106,7 @@ public class RegisterActivity extends AppCompatActivity {
 
     private void cancelRegisterButtonClick(View view) {
         Log.i(LOG_TAG, "Cancel Registration.");
+        button_cancelLogin.startAnimation(scaleAnimation);
         finish();
     }
 }

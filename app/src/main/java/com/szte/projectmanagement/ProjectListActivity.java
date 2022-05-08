@@ -1,16 +1,26 @@
 package com.szte.projectmanagement;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Intent;
 import android.content.res.TypedArray;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
+import android.widget.Toast;
 
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.android.material.snackbar.BaseTransientBottomBar;
+import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
@@ -28,10 +38,13 @@ public class ProjectListActivity extends AppCompatActivity {
     private FirebaseFirestore firestore;
 
     private RecyclerView recyclerView;
+    private FloatingActionButton fab_add;
+
     private ArrayList<Project> projectsData;
     private ProjectAdapter projectAdapter;
     private CollectionReference projectsCollection;
     private long itemLimit = 10;
+    private Animation scaleAnimation;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,12 +67,23 @@ public class ProjectListActivity extends AppCompatActivity {
 
         recyclerView = findViewById(R.id.recyclerView);
         recyclerView.setLayoutManager(new GridLayoutManager(this, gridNumber));
+        recyclerView.setItemAnimator(new DefaultItemAnimator());
         recyclerView.setAdapter(projectAdapter);
 
         // Firestore
         firestore = FirebaseFirestore.getInstance();
         projectsCollection = firestore.collection("Projects");
         queryData();
+
+        // Add button
+        fab_add = findViewById(R.id.fab_add);
+        fab_add.setOnClickListener(view -> {
+            fab_add.startAnimation(scaleAnimation);
+            Intent createProjectIntent = new Intent(this, CreateProjectActivity.class);
+            startActivity(createProjectIntent);
+        });
+
+        scaleAnimation = AnimationUtils.loadAnimation(this, R.anim.scale);
     }
 
     private void initializeData() {
@@ -93,5 +117,18 @@ public class ProjectListActivity extends AppCompatActivity {
                     // Notify the adapter of the change.
                     projectAdapter.notifyDataSetChanged();
                 });
+    }
+
+    public void deleteProject(Project project) {
+        DocumentReference ref = projectsCollection.document(project._getId());
+        ref.delete()
+                .addOnSuccessListener(success -> {
+                    Log.d(LOG_TAG, "Project is successfully deleted: " + project._getId());
+                })
+                .addOnFailureListener(fail -> {
+                    Toast.makeText(this, "Project " + project._getId() + " cannot be deleted.", Toast.LENGTH_LONG).show();
+                });
+
+        queryData();
     }
 }

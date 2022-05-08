@@ -15,7 +15,9 @@
             android:id="@+id/textView_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Name" />
+            android:text="Name"
+            android:textSize="22sp"
+            android:textStyle="bold" />
 
         <TextView
             android:id="@+id/textView_description"
@@ -23,6 +25,13 @@
             android:layout_height="wrap_content"
             android:layout_below="@id/textView_name"
             android:text="Some description" />
+
+        <Button
+            android:id="@+id/delete"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/textView_description"
+            android:text="Delete" />
 
     </RelativeLayout>
 

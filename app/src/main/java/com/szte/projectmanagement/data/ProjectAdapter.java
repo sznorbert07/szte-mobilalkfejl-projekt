@@ -4,11 +4,14 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.szte.projectmanagement.ProjectListActivity;
 import com.szte.projectmanagement.R;
 import com.szte.projectmanagement.data.model.Project;
 
@@ -18,6 +21,7 @@ public class ProjectAdapter extends RecyclerView.Adapter<ProjectAdapter.ProjectV
     private ArrayList<Project> projectsData;
 
     private Context context;
+    private int lastPosition = -1;
 
     public ProjectAdapter(Context context, ArrayList<Project> projectsData) {
         this.context = context;
@@ -37,7 +41,11 @@ public class ProjectAdapter extends RecyclerView.Adapter<ProjectAdapter.ProjectV
 
         holder.bindTo(currentProject);
 
-        // TODO?? animation
+        if(holder.getAdapterPosition() > lastPosition) {
+            Animation animation = AnimationUtils.loadAnimation(context, R.anim.slide_in_row);
+            holder.itemView.startAnimation(animation);
+            lastPosition = holder.getAdapterPosition();
+        }
     }
 
     @Override
@@ -59,6 +67,8 @@ public class ProjectAdapter extends RecyclerView.Adapter<ProjectAdapter.ProjectV
         void bindTo(Project project) {
             tv_name.setText(project.getName());
             tv_description.setText(project.getDescription());
+
+            itemView.findViewById(R.id.delete).setOnClickListener(view -> ((ProjectListActivity)context).deleteProject(project));
         }
     }
 }

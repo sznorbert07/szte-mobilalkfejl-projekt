@@ -1,13 +1,19 @@
 package com.szte.projectmanagement;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.firebase.auth.FirebaseAuth;
@@ -15,15 +21,18 @@ import com.google.firebase.auth.FirebaseAuth;
 import java.util.Objects;
 
 public class LoginActivity extends AppCompatActivity {
+    private static final String PREF_TAG = Objects.requireNonNull(LoginActivity.class.getPackage()).toString();
     private static final String LOG_TAG = LoginActivity.class.getName();
 
     private Button button_login;
     private Button button_cancelLogin;
+    private EditText et_emailAddress;
+    private EditText et_password;
 
-    EditText et_emailAddress;
-    EditText et_password;
+    private FirebaseAuth firebaseAuth;
+    private SharedPreferences preferences;
 
-    FirebaseAuth firebaseAuth;
+    private Animation scaleAnimation;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,10 +49,27 @@ public class LoginActivity extends AppCompatActivity {
         et_password = findViewById(R.id.editText_login_TextPassword);
 
         firebaseAuth = FirebaseAuth.getInstance();
+        preferences = getSharedPreferences(PREF_TAG, MODE_PRIVATE);
+
+        scaleAnimation = AnimationUtils.loadAnimation(this, R.anim.scale);
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+
+        SharedPreferences.Editor editor = preferences.edit();
+        editor.putString("emailAddress", et_emailAddress.getText().toString());
+        editor.putString("password", et_password.getText().toString());
+        editor.apply();
+
+        Log.i(LOG_TAG, "onPuase - Writing shared preferences.");
     }
 
     private void loginButtonClick(View target) {
         Log.i(LOG_TAG, "Logging in...");
+
+        button_login.startAnimation(scaleAnimation);
 
         String emailAddress = et_emailAddress.getText().toString();
         String password = et_password.getText().toString();
@@ -76,6 +102,7 @@ public class LoginActivity extends AppCompatActivity {
 
     private void cancelLoginButtonClick(View target) {
         Log.i(LOG_TAG, "Cancel Login.");
+        button_cancelLogin.startAnimation(scaleAnimation);
         finish();
     }
 }
