@@ -4,23 +4,38 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".LoginActivity">
+    tools:context=".RegisterActivity">
+
 
     <TextView
-        android:id="@+id/textView_login_title"
+        android:id="@+id/textView_register_title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:padding="10dp"
-        android:text="Login"
+        android:text="Registration"
         android:textAlignment="center"
         android:textSize="20sp"
         android:textStyle="bold" />
 
     <EditText
-        android:id="@+id/editText_login_TextEmailAddress"
+        android:id="@+id/editText_register_TextUsername"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/textView_login_title"
+        android:layout_below="@id/textView_register_title"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginLeft="@dimen/margin_side"
+        android:layout_marginTop="@dimen/margin_top"
+        android:layout_marginRight="@dimen/margin_side"
+        android:ems="10"
+        android:hint="Username"
+        android:inputType="text" />
+
+    <EditText
+        android:id="@+id/editText_register_TextEmailAddress"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/editText_register_TextUsername"
         android:layout_alignParentStart="true"
         android:layout_alignParentEnd="true"
         android:layout_marginLeft="@dimen/margin_side"
@@ -31,10 +46,10 @@
         android:inputType="textEmailAddress" />
 
     <EditText
-        android:id="@+id/editText_login_TextPassword"
+        android:id="@+id/editText_register_TextPassword"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/editText_login_TextEmailAddress"
+        android:layout_below="@id/editText_register_TextEmailAddress"
         android:layout_alignParentStart="true"
         android:layout_alignParentEnd="true"
         android:layout_marginLeft="@dimen/margin_side"
@@ -44,11 +59,25 @@
         android:hint="Password"
         android:inputType="textPassword" />
 
+    <EditText
+        android:id="@+id/editText_register_TextPasswordAgain"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/editText_register_TextPassword"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginLeft="@dimen/margin_side"
+        android:layout_marginTop="@dimen/margin_top"
+        android:layout_marginRight="@dimen/margin_side"
+        android:ems="10"
+        android:hint="Password again"
+        android:inputType="textPassword" />
+
 
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/editText_login_TextPassword"
+        android:layout_below="@id/editText_register_TextPasswordAgain"
         android:layout_centerHorizontal="true"
         android:layout_marginLeft="@dimen/margin_side"
         android:layout_marginTop="@dimen/margin_top"
@@ -56,13 +85,13 @@
         android:orientation="horizontal">
 
         <Button
-            android:id="@+id/button_login"
+            android:id="@+id/button_register"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Login" />
+            android:text="Register" />
 
         <Button
-            android:id="@+id/button_cancelLogin"
+            android:id="@+id/button_cancelRegister"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="40dp"

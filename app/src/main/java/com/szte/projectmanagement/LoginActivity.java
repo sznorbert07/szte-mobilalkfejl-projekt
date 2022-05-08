@@ -20,8 +20,8 @@ public class LoginActivity extends AppCompatActivity {
     private Button button_login;
     private Button button_cancelLogin;
 
-    EditText emailAddressET;
-    EditText passwordET;
+    EditText et_emailAddress;
+    EditText et_password;
 
     FirebaseAuth firebaseAuth;
 
@@ -36,9 +36,8 @@ public class LoginActivity extends AppCompatActivity {
         button_cancelLogin = findViewById(R.id.button_cancelLogin);
         button_cancelLogin.setOnClickListener(this::cancelLoginButtonClick);
 
-        emailAddressET = findViewById(R.id.editText_login_TextEmailAddress);
-
-        passwordET = findViewById(R.id.editText_login_TextPassword);
+        et_emailAddress = findViewById(R.id.editText_login_TextEmailAddress);
+        et_password = findViewById(R.id.editText_login_TextPassword);
 
         firebaseAuth = FirebaseAuth.getInstance();
     }
@@ -46,8 +45,8 @@ public class LoginActivity extends AppCompatActivity {
     private void loginButtonClick(View target) {
         Log.i(LOG_TAG, "Logging in...");
 
-        String emailAddress = emailAddressET.getText().toString();
-        String password = passwordET.getText().toString();
+        String emailAddress = et_emailAddress.getText().toString();
+        String password = et_password.getText().toString();
 
         if (emailAddress.isEmpty() || password.isEmpty()) {
             String error = "E-mail and password can't be empty.";

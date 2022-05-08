@@ -34,6 +34,8 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void openRegisterButtonClick(View target) {
-//        Log.i(LOG_TAG, "Opening " + RegisterActivity.class.getName());
+        Log.i(LOG_TAG, "Opening " + RegisterActivity.class.getName());
+        Intent registerIntent = new Intent(this, RegisterActivity.class);
+        startActivity(registerIntent);
     }
 }
