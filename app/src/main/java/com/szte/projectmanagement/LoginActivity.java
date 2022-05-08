@@ -69,13 +69,14 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     private void startProjectActivity() {
-        Log.i(LOG_TAG, "Start " + ProjectActivity.class.getName());
+        Log.i(LOG_TAG, "Start " + ProjectListActivity.class.getName());
 
-        Intent projectIntent = new Intent(this, ProjectActivity.class);
+        Intent projectIntent = new Intent(this, ProjectListActivity.class);
         startActivity(projectIntent);
     }
 
     private void cancelLoginButtonClick(View target) {
         Log.i(LOG_TAG, "Cancel Login.");
+        finish();
     }
 }

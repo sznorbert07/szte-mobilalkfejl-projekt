@@ -10,7 +10,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.ProjectManagement">
         <activity
-            android:name=".ProjectActivity"
+            android:name=".ProjectListActivity"
             android:exported="false" />
         <activity
             android:name=".LoginActivity"
