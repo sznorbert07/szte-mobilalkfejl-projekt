@@ -29,7 +29,7 @@
         app:layout_constraintTop_toBottomOf="@+id/imageView_appLogo" />
 
     <Button
-        android:id="@+id/button_login"
+        android:id="@+id/button_openLogin"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="150dp"
@@ -41,7 +41,7 @@
         app:layout_constraintTop_toBottomOf="@+id/textView_welcomeMessage" />
 
     <Button
-        android:id="@+id/button_register"
+        android:id="@+id/button_openRegister"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="12dp"
@@ -51,7 +51,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/button_login" />
+        app:layout_constraintTop_toBottomOf="@+id/button_openLogin" />
 
     <TextView
         android:id="@+id/textView_author"

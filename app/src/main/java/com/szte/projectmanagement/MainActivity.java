@@ -1,5 +1,6 @@
 package com.szte.projectmanagement;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -10,23 +11,29 @@ import androidx.appcompat.app.AppCompatActivity;
 public class MainActivity extends AppCompatActivity {
     private static final String LOG_TAG = MainActivity.class.getName();
 
+    private Button button_openLogin;
+    private Button button_openRegister;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        Button button_login = findViewById(R.id.button_login);
-        Button button_register = findViewById(R.id.button_register);
+        button_openLogin = findViewById(R.id.button_openLogin);
+        button_openRegister = findViewById(R.id.button_openRegister);
 
-        button_login.setOnClickListener(this::loginButtonClick);
-        button_register.setOnClickListener(this::registerButtonClick);
+        button_openLogin.setOnClickListener(this::openLoginButtonClick);
+        button_openRegister.setOnClickListener(this::openRegisterButtonClick);
     }
 
-    private void loginButtonClick(View target) {
-        Log.i(LOG_TAG, "Login button pressed");
+    private void openLoginButtonClick(View target) {
+        Log.i(LOG_TAG, "Opening " + LoginActivity.class.getName());
+
+        Intent loginIntent = new Intent(this, LoginActivity.class);
+        startActivity(loginIntent);
     }
 
-    private void registerButtonClick(View target) {
-        Log.i(LOG_TAG, "Register button pressed");
+    private void openRegisterButtonClick(View target) {
+//        Log.i(LOG_TAG, "Opening " + RegisterActivity.class.getName());
     }
 }
